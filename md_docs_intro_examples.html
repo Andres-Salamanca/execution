@@ -147,8 +147,46 @@ world"</code>: it uses components for dealing with asynchronous work to synchron
 <summary >
 <code>"Hello, async"</code> - a simple asynchronous example</summary>
 <p></p>
-<p>Code: [<code>examples/intro-2-hello-async.cpp</code>]()</p>
-<p></p>
+<div class="fragment"><div class="line"><span class="comment">// examples/intro-2-hello-async.cpp                                   -*-C++-*-</span></div>
+<div class="line"><span class="comment">// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception</span></div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#include &lt;beman/execution/execution.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;intro-timer.hpp&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;chrono&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;tuple&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">namespace </span>ex = ::beman::execution;</div>
+<div class="line"><span class="keyword">using namespace </span>std::string_literals;</div>
+<div class="line"><span class="keyword">using namespace </span>std::chrono_literals;</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// ----------------------------------------------------------------------------</span></div>
+<div class="line"><span class="comment">// Please see the explanation in docs/intro-examples.md for an explanation.</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main() {</div>
+<div class="line">    std::cout &lt;&lt; std::unitbuf;</div>
+<div class="line">    intro::timer timer;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// clang-format off</span></div>
+<div class="line">     <span class="keyword">auto</span> [result] = ex::sync_wait(</div>
+<div class="line">         ex::when_all(</div>
+<div class="line">             timer.run(),</div>
+<div class="line">             ex::when_all(</div>
+<div class="line">                 timer.resume_after(3s)</div>
+<div class="line">                     | ex::then([] { std::cout &lt;&lt; <span class="stringliteral">&quot;h\n&quot;</span>; return std::string(<span class="stringliteral">&quot;hello&quot;</span>); }),</div>
+<div class="line">                 timer.resume_after(1s)</div>
+<div class="line">                     | ex::then([] { std::cout &lt;&lt; <span class="stringliteral">&quot;,\n&quot;</span>; return std::string(<span class="stringliteral">&quot;, &quot;</span>); }),</div>
+<div class="line">                 timer.resume_after(2s)</div>
+<div class="line">                     | ex::then([] { std::cout &lt;&lt; <span class="stringliteral">&quot;w\n&quot;</span>; return std::string(<span class="stringliteral">&quot;world&quot;</span>); })</div>
+<div class="line">             ) | ex::then([](<span class="keyword">auto</span> s1, <span class="keyword">auto</span> s2, <span class="keyword">auto</span> s3) { return s1 + s2 + s3; })</div>
+<div class="line">         )</div>
+<div class="line">     ).value_or(std::tuple(std::string(<span class="stringliteral">&quot;&quot;</span>)));</div>
+<div class="line">    <span class="comment">// clang-format on</span></div>
+<div class="line"> </div>
+<div class="line">    std::cout &lt;&lt; result &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p></p>
 </details>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
