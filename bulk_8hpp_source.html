@@ -103,38 +103,38 @@ $(document).ready(function(){initNavTree('bulk_8hpp_source.html',''); initResiza
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// include/beman/execution/detail/bulk.hpp                         -*-C++-*-</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#ifndef INCLUDED_BEMAN_EXECUTION_DETAIL_SPLIT</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#define INCLUDED_BEMAN_EXECUTION_DETAIL_SPLIT</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#ifndef INCLUDED_BEMAN_EXECUTION_DETAIL_BULK</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#define INCLUDED_BEMAN_EXECUTION_DETAIL_BULK</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;beman/execution/detail/basic_sender.hpp&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;beman/execution/detail/callable.hpp&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;beman/execution/detail/completion_signatures_for.hpp&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;beman/execution/detail/get_domain_early.hpp&quot;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;beman/execution/detail/make_sender.hpp&quot;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;beman/execution/detail/movable_value.hpp&quot;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;beman/execution/detail/product_type.hpp&quot;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;beman/execution/detail/sender.hpp&quot;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;beman/execution/detail/set_error.hpp&quot;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;beman/execution/detail/transform_sender.hpp&quot;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;beman/execution/detail/default_impls.hpp&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;beman/execution/detail/impls_for.hpp&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;beman/execution/detail/set_value.hpp&gt;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;concepts&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;exception&gt;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">namespace </span>beman::execution::detail {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">struct </span>bulk_t {</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="comment">/*</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment"></span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">  decltype((sndr)) does not satisfy sender, or</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">  Shape does not satisfy integral, or</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">  decltype((f)) does not satisfy movable-value,</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;beman/execution/detail/error_types_of_t.hpp&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;beman/execution/detail/meta_combine.hpp&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;beman/execution/detail/meta_unique.hpp&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;beman/execution/detail/set_stopped.hpp&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;beman/execution/detail/value_types_of_t.hpp&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;beman/execution/detail/basic_sender.hpp&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;beman/execution/detail/completion_signatures.hpp&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;beman/execution/detail/completion_signatures_for.hpp&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;beman/execution/detail/get_domain_early.hpp&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;beman/execution/detail/make_sender.hpp&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;beman/execution/detail/movable_value.hpp&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;beman/execution/detail/product_type.hpp&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;beman/execution/detail/sender.hpp&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;beman/execution/detail/set_error.hpp&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;beman/execution/detail/transform_sender.hpp&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;beman/execution/detail/default_impls.hpp&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;beman/execution/detail/impls_for.hpp&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;beman/execution/detail/set_value.hpp&gt;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;concepts&gt;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;exception&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &lt;beman/execution/detail/suppress_push.hpp&gt;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">namespace </span>beman::execution::detail {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">struct </span>bulk_t {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">template</span> &lt;<span class="keyword">class</span> Sender, <span class="keyword">class</span> Shape, <span class="keyword">class</span> f&gt;</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keyword">requires</span>(::beman::execution::sender&lt;Sender&gt; &amp;&amp; std::is_integral_v&lt;Shape&gt; &amp;&amp;</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                 ::beman::execution::detail::movable_value&lt;f&gt;)</div>
@@ -155,9 +155,9 @@ $(document).ready(function(){initNavTree('bulk_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> complete = []&lt;<span class="keyword">class </span>Index, class State, class Rcvr, class Tag, class... Args&gt;(</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                                         Index, State&amp; state, Rcvr&amp; rcvr, Tag, Args&amp;&amp;... args) <span class="keyword">noexcept</span> -&gt; <span class="keywordtype">void</span></div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keyword">requires</span>(not::std::same_as&lt;Tag, set_value_t&gt; ||</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                 ::beman::execution::detail::callable&lt;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                     Tag,</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                     Args...&gt; <span class="comment">/* expression f(auto(shape), args...) is well-formed. dont know if this is ok */</span>)</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                 <span class="keyword">requires</span>(State&amp; s, Args&amp;&amp;... a) {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                     (s.template get&lt;1&gt;())(s.template get&lt;0&gt;(), ::std::forward&lt;Args&gt;(a)...);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                 })</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    {</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (std::same_as&lt;Tag, set_value_t&gt;) {</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="keyword">auto</span>&amp; [shape, f] = state;</div>
@@ -183,23 +183,57 @@ $(document).ready(function(){initNavTree('bulk_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>};</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> Shape, <span class="keyword">class</span> f, <span class="keyword">class</span> Sender, <span class="keyword">class</span> Env&gt;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">struct </span>completion_signatures_for&lt;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">struct </span>completion_signatures_for_impl&lt;</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    ::beman::execution::detail::</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        basic_sender&lt;::beman::execution::detail::bulk_t, ::beman::execution::detail::product_type&lt;Shape, f&gt;, Sender&gt;,</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    Env&gt; {};</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    Env&gt; {</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>} <span class="comment">// namespace beman::execution::detail</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacebeman_1_1execution.html">beman::execution</a> {</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>using ::beman::execution::detail::bulk_t;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword">inline</span> constexpr ::beman::execution::bulk_t bulk{};</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>} <span class="comment">// namespace beman::execution</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="comment">// Creates a completion signature for set_value_t`</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keyword">template</span> &lt;<span class="keyword">class</span>... Args&gt;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keyword">using </span>make_value_completions =</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <a class="code hl_struct" href="structbeman_1_1execution_1_1completion__signatures.html">::beman::execution::completion_signatures</a>&lt;<a class="code hl_struct" href="structbeman_1_1execution_1_1set__value__t.html">::beman::execution::set_value_t</a>(<span class="keyword">const</span> std::decay_t&lt;Args&gt;&amp;...)&gt;;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="comment">// Creates a completion signature for set_error_t</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keyword">template</span> &lt;<span class="keyword">class</span>... Args&gt;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keyword">using </span>make_error_completions =</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <a class="code hl_struct" href="structbeman_1_1execution_1_1completion__signatures.html">::beman::execution::completion_signatures</a>&lt;<a class="code hl_struct" href="structbeman_1_1execution_1_1set__error__t.html">::beman::execution::set_error_t</a>(<span class="keyword">const</span> std::decay_t&lt;Args&gt;&amp;)...&gt;;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="comment">// Retrieves the value completion signatures from the Sender using Env,</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="comment">// then applies `make_value_completions` to format them and merges all signatures.</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keyword">using </span>value_completions = ::beman::execution::</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        value_types_of_t&lt;Sender, Env, make_value_completions, ::beman::execution::detail::meta::combine&gt;;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="comment">// Retrieves the error completion signatures from the Sender using Env,</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="comment">// then applies make_error_completions to format them.</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">using </span>error_completions = <a class="code hl_typedef" href="namespacebeman_1_1execution.html#a3ba1e76a1b163c494f5de40140a5f51d">::beman::execution::error_types_of_t&lt;Sender, Env, make_error_completions&gt;</a>;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keyword">using </span>fixed_completions =</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <a class="code hl_struct" href="structbeman_1_1execution_1_1completion__signatures.html">::beman::execution::completion_signatures</a>&lt;<a class="code hl_struct" href="structbeman_1_1execution_1_1set__stopped__t.html">::beman::execution::set_stopped_t</a>(),</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                                                  <a class="code hl_struct" href="structbeman_1_1execution_1_1set__error__t.html">::beman::execution::set_error_t</a>(std::exception_ptr)&gt;;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keyword">using </span>type = ::beman::execution::detail::meta::unique&lt;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        ::beman::execution::detail::meta::combine&lt;fixed_completions, value_completions, error_completions&gt;&gt;;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>};</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>} <span class="comment">// namespace beman::execution::detail</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="preprocessor">#include &lt;beman/execution/detail/suppress_pop.hpp&gt;</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacebeman_1_1execution.html">beman::execution</a> {</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>using ::beman::execution::detail::bulk_t;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="keyword">inline</span> constexpr ::beman::execution::bulk_t bulk{};</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>} <span class="comment">// namespace beman::execution</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="anamespacebeman_1_1execution_html"><div class="ttname"><a href="namespacebeman_1_1execution.html">beman::execution</a></div><div class="ttdoc">Namespace for asynchronous operations and their vocabulary.</div><div class="ttdef"><b>Definition:</b> allocator_aware_move.hpp:16</div></div>
 <div class="ttc" id="anamespacebeman_1_1execution_html_a0c818e99f3355da27e1b2742a6412e80"><div class="ttname"><a href="namespacebeman_1_1execution.html#a0c818e99f3355da27e1b2742a6412e80">beman::execution::set_error</a></div><div class="ttdeci">constexpr set_error_t set_error</div><div class="ttdoc">Customization point object for error completions.</div><div class="ttdef"><b>Definition:</b> set_error.hpp:47</div></div>
+<div class="ttc" id="anamespacebeman_1_1execution_html_a3ba1e76a1b163c494f5de40140a5f51d"><div class="ttname"><a href="namespacebeman_1_1execution.html#a3ba1e76a1b163c494f5de40140a5f51d">beman::execution::error_types_of_t</a></div><div class="ttdeci">::beman::execution::detail::gather_signatures&lt; ::beman::execution::set_error_t, ::beman::execution::completion_signatures_of_t&lt; Sender, Env &gt;, ::std::type_identity_t, Variant &gt; error_types_of_t</div><div class="ttdoc">Type alias to get error types for a sender.</div><div class="ttdef"><b>Definition:</b> error_types_of_t.hpp:30</div></div>
+<div class="ttc" id="astructbeman_1_1execution_1_1completion__signatures_html"><div class="ttname"><a href="structbeman_1_1execution_1_1completion__signatures.html">beman::execution::completion_signatures</a></div><div class="ttdoc">Class template used to a specify a list of completion signatures.</div><div class="ttdef"><b>Definition:</b> completion_signatures.hpp:24</div></div>
+<div class="ttc" id="astructbeman_1_1execution_1_1set__error__t_html"><div class="ttname"><a href="structbeman_1_1execution_1_1set__error__t.html">beman::execution::set_error_t</a></div><div class="ttdoc">Type of the customization point object for error completions.</div><div class="ttdef"><b>Definition:</b> set_error.hpp:19</div></div>
+<div class="ttc" id="astructbeman_1_1execution_1_1set__stopped__t_html"><div class="ttname"><a href="structbeman_1_1execution_1_1set__stopped__t.html">beman::execution::set_stopped_t</a></div><div class="ttdoc">Type of the customization point object for cancellation completions.</div><div class="ttdef"><b>Definition:</b> set_stopped.hpp:19</div></div>
+<div class="ttc" id="astructbeman_1_1execution_1_1set__value__t_html"><div class="ttname"><a href="structbeman_1_1execution_1_1set__value__t.html">beman::execution::set_value_t</a></div><div class="ttdoc">Type of the customization point object for successful completions.</div><div class="ttdef"><b>Definition:</b> set_value.hpp:19</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
