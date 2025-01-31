@@ -26,32 +26,26 @@ var NAVTREE =
 [
   [ "beman::execution", "index.html", [
     [ "Asynchronous Operation Support", "index.html", null ],
-    [ "contributing", "md_docs_contributing.html", [
-      [ "Contributing to <tt>beman::execution</tt>", "md_docs_contributing.html#autotoc_md0", null ]
-    ] ],
     [ "intro-examples", "md_docs_intro_examples.html", [
-      [ "Introduction by Example", "md_docs_intro_examples.html#autotoc_md1", null ]
+      [ "Introduction by Example", "md_docs_intro_examples.html#autotoc_md0", null ]
     ] ],
     [ "overview", "md_docs_overview.html", [
-      [ "std::execution Overview", "md_docs_overview.html#autotoc_md2", [
-        [ "Terms", "md_docs_overview.html#autotoc_md3", null ],
-        [ "Concepts", "md_docs_overview.html#autotoc_md4", null ],
-        [ "Queries", "md_docs_overview.html#autotoc_md5", [
-          [ "Customization Point Objects", "md_docs_overview.html#autotoc_md6", null ]
+      [ "std::execution Overview", "md_docs_overview.html#autotoc_md1", [
+        [ "Terms", "md_docs_overview.html#autotoc_md2", null ],
+        [ "Concepts", "md_docs_overview.html#autotoc_md3", null ],
+        [ "Queries", "md_docs_overview.html#autotoc_md4", [
+          [ "Customization Point Objects", "md_docs_overview.html#autotoc_md5", null ]
         ] ],
-        [ "Senders", "md_docs_overview.html#autotoc_md7", [
-          [ "Sender Factories", "md_docs_overview.html#autotoc_md8", null ],
-          [ "Sender Adaptors", "md_docs_overview.html#autotoc_md9", null ],
-          [ "Sender Consumers", "md_docs_overview.html#autotoc_md10", null ]
+        [ "Senders", "md_docs_overview.html#autotoc_md6", [
+          [ "Sender Factories", "md_docs_overview.html#autotoc_md7", null ],
+          [ "Sender Adaptors", "md_docs_overview.html#autotoc_md8", null ],
+          [ "Sender Consumers", "md_docs_overview.html#autotoc_md9", null ]
         ] ],
-        [ "Helpers", "md_docs_overview.html#autotoc_md11", null ],
-        [ "Stop Token", "md_docs_overview.html#autotoc_md12", null ]
+        [ "Helpers", "md_docs_overview.html#autotoc_md10", null ],
+        [ "Stop Token", "md_docs_overview.html#autotoc_md11", null ]
       ] ]
     ] ],
     [ "Questions", "md_docs_questions.html", null ],
-    [ "resources", "md_docs_resources.html", [
-      [ "Resources Related to <tt>beman::execution</tt>", "md_docs_resources.html#autotoc_md14", null ]
-    ] ],
     [ "ToDo", "md_docs_TODO.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -77,7 +71,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "allocator__aware__move_8hpp_source.html",
-"structbeman_1_1execution_1_1get__env__t.html"
+"structbeman_1_1execution_1_1nostopstate__t.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
